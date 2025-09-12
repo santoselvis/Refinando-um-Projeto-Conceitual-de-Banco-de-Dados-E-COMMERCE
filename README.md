@@ -1,4 +1,4 @@
-# Refinando-um-Projeto-Conceitual-de-Banco-de-Dados-E-COMMERCE
+# Projeto Conceitual de Banco de Dados - E-COMMERCE
 Este repositório contém a documentação e os artefatos relacionados ao refinamento de um projeto conceitual de banco de dados voltado para uma plataforma de e-commerce. O objetivo principal é transformar requisitos de negócio em um modelo conceitual claro, estruturado e alinhado com as boas práticas de modelagem de dados.
 
 ##  Conecte-se comigo 
@@ -12,18 +12,24 @@ Este repositório contém a documentação e os artefatos relacionados ao refina
 <br />
 <br />
 [![Status](https://img.shields.io/badge/status-%20concluido-blue)](#)
-  
 
-## 📋 Levantamento de Requisitos – E-COMMERCE
+## Sumario
+- 1. Levantamento de Requisitos
+- 1.1 Requisitos Funcionais
+- 1.2 Regras de Negócio
+- 1.3 Modelo Conceitual E-commerce
+- 1.4 Entidades e Atributos
+- 1.5 Relacionamentos
+- 2.0 Refinando o Modelo
+- 2.1
+- 2.2
+- 2.3
+- 2.4
 
----
-
-### 🎯 Objetivo do Sistema
-Desenvolver um projeto conceitual de banco de dados para criação de um e-commerce que permita o gerenciamento eficiente de produtos, clientes, pedidos e pagamentos.
-
----
-
-### 📌 Requisitos Funcionais
+## 1.0 Levantamento de Requisitos
+Todos os requisitos aqui destacados foram levantados com base no modulo Refinando um Projeto Conceitual de Banco de Dados - E-commerce, parte do Bootcamp Randstad Analise de Dados da DIO. O objetivo é desenvolver um projeto conceitual de banco de dados para criação de um e-commerce que permita o gerenciamento eficiente de produtos, clientes, pedidos e pagamentos e etc...
+ 
+### 1.1 Requisitos Funcionais
 1. O sistema deve armazenar informações de clientes, sendo que o os clientes podem ser pessoa fisica e juridica (nome, e-mail, CPF/CNPJ, endereço e etc...).
 2. O sistema deve cadastrar produtos com nome, descrição, preço e quantidade em estoque.
 3. Cada pedido deve estar associado a um cliente.
@@ -32,8 +38,7 @@ Desenvolver um projeto conceitual de banco de dados para criação de um e-comme
 6. O sistema deve registrar pagamentos com forma de pagamento e data.
 
 
-
-### 📌 Regras de Negócio
+### 1.2 Regras de Negócio
 - Um cliente pode fazer múltiplos pedidos.
 - Um produto pode estar em vários pedidos.
 - Um pedido pode conter múltiplos produtos (relação muitos-para-muitos).
@@ -42,56 +47,69 @@ Desenvolver um projeto conceitual de banco de dados para criação de um e-comme
 - O pagamento deve estar associado a um pedido.
 - Entrega – Possui status e código de rastreio.
 
----
 
-## 🗂️ Modelo Conceitual – E-COMMERCE
-Abaixo está a representação do modelo conceitual usando a notação Entidade-Relacionamento (ER) com base nos requisitos levantados.
+### 1.3 Modelo Conceitual – E-COMMERCE
+Abaixo está a representação do modelo conceitual, usando a notação Entidade-Relacionamento (ER) com base nos requisitos levantados.
+<div align="center">
+    <img src="Files/img01.png" alt="Create a resource" width="600"/>
+</div>
 
-
-
-### 📌 Entidades e Atributos
+### 1.4 Entidades e Atributos
 ***Cliente***
 - id_cliente (PK)
-- nome
-- email
-- cpf
+- tipo_cliente
 - endereco
+- email
+---
 
-
-*Produto*
-- id_produto (PK)
+*Cliente_PF (Entidade Fraca)*
+- Cliente_id_cliente (FK)
 - nome
+- cpf
+- data_nascimento
+- celular
+
+*Cliente_PJ (Entidade Fraca)*
+- Cliente_id_cliente (FK)
+- razao_social
+- cnpj
+- inscricao_estadual
+- telefone
+---
+
+***Produto***
+- id_produto (PK)
 - descricao
 - preco
 - estoque
+---
 
-
-
-*Pedido*
+***Pedido***
 - id_pedido (PK)
-- id_cliente (FK)
+- Cliente_id_cliente (FK)
+- Produto_id_produto (FK)
+- Entrega_id_entrega (FK)
 - data_pedido
-- status
+- status_pedido
+- valor_pedido
+---
 
-
-
-*Pagamento*
+***Pagamento***
 - id_pagamento (PK)
-- id_pedido (FK)
+- Pedido_id_pedido (FK)
 - forma_pagamento
 - data_pagamento
+- status_pagamento
+---
 
-
-
-*Item_Pedido (Entidade Associativa)*
+***Item_Pedido (Entidade Associativa)***
 - id_pedido (FK)
 - id_produto (FK)
 - quantidade
 - preco_unitario
-
 ---
 
-### 📌 Relacionamentos
+### 1.5 Relacionamentos
 - **Cliente 1:N Pedido** – Um cliente pode fazer vários pedidos.
 - **Pedido 1:1 Pagamento** – Cada pedido possui um pagamento associado.
 - **Pedido N:M Produto** – Representado pela entidade associativa `Item_Pedido`.
