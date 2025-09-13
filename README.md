@@ -1,4 +1,4 @@
-# Projeto Conceitual de Banco de Dados - E-COMMERCE
+# Projeto Conceitual de Banco de Dados - E-commerce
 Este repositório contém a documentação e os artefatos relacionados ao refinamento de um projeto conceitual de banco de dados voltado para uma plataforma de e-commerce. O objetivo principal é transformar requisitos de negócio em um modelo conceitual claro, estruturado e alinhado com as boas práticas de modelagem de dados.
 
 ##  Conecte-se comigo 
@@ -13,6 +13,7 @@ Este repositório contém a documentação e os artefatos relacionados ao refina
 <br />
 [![Status](https://img.shields.io/badge/status-%20concluido-blue)](#)
 
+---
 ## Sumario
 - 1. Levantamento de Requisitos
 - 1.1 Requisitos Funcionais
@@ -20,23 +21,26 @@ Este repositório contém a documentação e os artefatos relacionados ao refina
 - 1.3 Modelo Conceitual E-commerce
 - 1.4 Entidades e Atributos
 - 1.5 Relacionamentos
-- 2.0 Refinando o Modelo
-- 2.1
-- 2.2
-- 2.3
-- 2.4
+- 2.0 Refinando o Modelo Conceitual
+- 2.1 Primeiro Refinamento - Criação da Entidade Associativa "Item_Pedido"
+- 2.2 Segundo Refinamento - Adição de Status do Pedido
+- 2.3 Terceiro Refinamento - 
+- 2.4 Quarto Refinamento - 
+- 2.5 Quinto Refinamento - 
+- 2.6 Sexto Refinamento - 
+- 2.7 Setimo Refinamento -
 
-## 1.0 Levantamento de Requisitos
+### 1.0 Levantamento de Requisitos
 Todos os requisitos aqui destacados foram levantados com base no modulo Refinando um Projeto Conceitual de Banco de Dados - E-commerce, parte do Bootcamp Randstad Analise de Dados da DIO. O objetivo é desenvolver um projeto conceitual de banco de dados para criação de um e-commerce que permita o gerenciamento eficiente de produtos, clientes, pedidos e pagamentos e etc...
  
 ### 1.1 Requisitos Funcionais
 1. O sistema deve armazenar informações de clientes, sendo que o os clientes podem ser pessoa fisica e juridica (nome, e-mail, CPF/CNPJ, endereço e etc...).
-2. O sistema deve cadastrar produtos com nome, descrição, preço e quantidade em estoque.
-3. Cada pedido deve estar associado a um cliente.
-4. Cada pedido pode conter um ou mais produtos.
-5. O sistema deve registrar o status de cada pedido (em processamento, enviado, entregue, cancelado).
-6. O sistema deve registrar pagamentos com forma de pagamento e data.
-
+2. Vendedores terceiros cadastrados podem vender seus produtos no sistema.
+3. O sistema deve cadastrar produtos com nome, descrição, preço e quantidade em estoque.
+4. Cada pedido deve estar associado a um cliente.
+5. Cada pedido pode conter um ou mais produtos.
+6. O sistema deve registrar o status de cada pedido (em processamento, enviado, entregue, cancelado).
+7. O sistema deve registrar pagamentos com forma de pagamento e data.
 
 ### 1.2 Regras de Negócio
 - Um cliente pode fazer múltiplos pedidos.
@@ -47,8 +51,7 @@ Todos os requisitos aqui destacados foram levantados com base no modulo Refinand
 - O pagamento deve estar associado a um pedido.
 - Entrega – Possui status e código de rastreio.
 
-
-### 1.3 Modelo Conceitual – E-COMMERCE
+### 1.3 Modelo Conceitual – E-commerce
 Abaixo está a representação do modelo conceitual, usando a notação Entidade-Relacionamento (ER) com base nos requisitos levantados.
 <div align="center">
     <img src="Files/img01.png" alt="Create a resource" width="600"/>
@@ -60,29 +63,32 @@ Abaixo está a representação do modelo conceitual, usando a notação Entidade
 - tipo_cliente
 - endereco
 - email
----
 
-*Cliente_PF (Entidade Fraca)*
+***Cliente_PF (Entidade Fraca)***
 - Cliente_id_cliente (FK)
 - nome
 - cpf
 - data_nascimento
 - celular
 
-*Cliente_PJ (Entidade Fraca)*
+***Cliente_PJ (Entidade Fraca)***
 - Cliente_id_cliente (FK)
 - razao_social
 - cnpj
 - inscricao_estadual
 - telefone
----
+
+***Fornecedor***
+- id_fornecedor (PK)
+- razao_social
+- endereco
+- cnpj
 
 ***Produto***
 - id_produto (PK)
 - descricao
 - preco
 - estoque
----
 
 ***Pedido***
 - id_pedido (PK)
@@ -92,7 +98,6 @@ Abaixo está a representação do modelo conceitual, usando a notação Entidade
 - data_pedido
 - status_pedido
 - valor_pedido
----
 
 ***Pagamento***
 - id_pagamento (PK)
@@ -100,55 +105,51 @@ Abaixo está a representação do modelo conceitual, usando a notação Entidade
 - forma_pagamento
 - data_pagamento
 - status_pagamento
----
 
 ***Item_Pedido (Entidade Associativa)***
 - id_pedido (FK)
 - id_produto (FK)
 - quantidade
 - preco_unitario
----
+
+***Entrega***
+- id_entrega (PK)
+- status
+- data_entrega
+- previsao_entrega
+- rastreio
+- endereco_entrega
 
 ### 1.5 Relacionamentos
 - **Cliente 1:N Pedido** – Um cliente pode fazer vários pedidos.
 - **Pedido 1:1 Pagamento** – Cada pedido possui um pagamento associado.
 - **Pedido N:M Produto** – Representado pela entidade associativa `Item_Pedido`.
 
+### 2.0 Refinando o Modelo Conceitual
+A partir daqui serão documentados os ajustes e melhorias feitos após a construção inicial do modelo conceitual, sempre com base no que foi passado durante o modulo.
+
+### 2.1 Primeiro Refinamento – Criação da Entidade Associativa "Item_Pedido"
+- Motivação: A relação muitos-para-muitos entre Pedido e Produto precisava ser melhor representada.
+- Solução: Criamos a entidade associativa "Item_Pedido", permitindo registrar quantidade e preço por item no pedido.
+
+### 2.2 Refinamento 2 – Adição de status ao Pedido
+- Motivação: Era necessário acompanhar o ciclo de vida de um pedido.
+- Solução: Adicionado o atributo `status_pedido` na entidade Pedido (em processamento, enviado, entregue, cancelado). Para complementar o refinamento tambem foi adicionado o atributo data_pedido para registrar as datas em que cada um dos pedidos foram abertos.
+
+### 2.3 Refinamento 3 – Registro da Forma de Pagamento
+- Motivação: Era importante diferenciar pagamentos (cartão, boleto, pix etc.).
+- Solução: Adicionado o atributo `forma_pagamento` na entidade Pagamento.
 
 
-# 🔄 Refinamentos do Modelo Conceitual
-Este arquivo documenta os ajustes e melhorias feitos após a construção inicial do modelo.
+Outros refinamentos poderão ser realizados conforme novos requisitos forem identificados, ou correções sejam propostas no modulo.
 
+### 3.0 Caso de Uso: Compra de um Produto
+Criamos o ambiente e agora vamos realizar testes de funcionamento e ver se houve alguma falha ou falta na modelagem.
 
-
-## ✅ Refinamento 1 – Criação da entidade associativa `Item_Pedido`
-- **Motivação**: A relação muitos-para-muitos entre Pedido e Produto precisava ser melhor representada.
-- **Solução**: Criamos a entidade associativa `Item_Pedido`, permitindo registrar quantidade e preço por item no pedido.
-
-
-
-## ✅ Refinamento 2 – Adição de status ao Pedido
-- **Motivação**: Era necessário acompanhar o ciclo de vida de um pedido.
-- **Solução**: Adicionado o atributo `status` na entidade Pedido (em processamento, enviado, entregue, cancelado).--
-
-
-
-## ✅ Refinamento 3 – Registro da forma de pagamento
-- **Motivação**: Era importante diferenciar pagamentos (cartão, boleto, pix etc.).
-- **Solução**: Adicionado o atributo `forma_pagamento` na entidade Pagamento.
-
-
-
-Outros refinamentos poderão ser realizados conforme novos requisitos forem identificados.
-
-# 📌 Caso de Uso: Compra de um Produto
-
-## 🧾 Cenário
+### 🧾 Cenário
 O cliente João realiza uma compra de 2 unidades do produto "Fone Bluetooth".
 
-
-
-## 📦 Entidades Envolvidas
+### 3.1 Entidades Envolvidas
 
 - **Cliente**: João da Silva (id_cliente = 1)
 - **Produto**: Fone Bluetooth (id_produto = 10)
