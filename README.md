@@ -81,7 +81,7 @@ O sistema deve controlar a entrega de cada pedido, mantendo registros como:
 ### 1.3 Modelo Conceitual – E-commerce
 Abaixo está a representação do modelo conceitual, usando a notação Entidade-Relacionamento (ER) com base nos requisitos levantados.
 <div align="center">
-    <img src="Files/img01.png" alt="Create a resource" width="600"/>
+    <img src="Files/Diagrama - Projeto Conceitual de Banco de Dados - E-commerce.png" alt="Create a resource" width="600"/>
 </div>
 
 ### 1.4 Entidades e Atributos
